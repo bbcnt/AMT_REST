@@ -11,9 +11,13 @@ import ch.heigvd.amt_rest.services.FactManagerLocal;
 import ch.heigvd.amt_rest.services.ObservationManagerLocal;
 import ch.heigvd.amt_rest.services.OrganizationManagerLocal;
 import ch.heigvd.amt_rest.services.SensorManagerLocal;
-import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -50,14 +54,18 @@ public class FactResource {
     @GET
     @Produces("application/json")
     public List<FactDTO> getFacts(@QueryParam("organizationid") Long idOrg,
-                                  @QueryParam("sensorid") Long idSen)
+                                  @QueryParam("sensorid") Long idSen,
+                                  @QueryParam("date") String ldate) throws ParseException
     {
-        List<Fact> facts = fManager.findFacts(idOrg, idSen);
+        
+        
+        DateFormat format = new SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH);
+        Date receivedDate = format.parse(ldate);
+        List<Fact> facts = fManager.findFacts(idOrg, idSen, receivedDate);
         List<FactDTO> results = new LinkedList<>();
 
         for(Fact f: facts){
             results.add(toDTO(f));
-
         }
         return results;
     }

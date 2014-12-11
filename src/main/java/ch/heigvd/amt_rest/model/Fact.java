@@ -7,7 +7,6 @@ package ch.heigvd.amt_rest.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import org.joda.time.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -26,8 +23,8 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = Fact.GET_ALL_FACTS, query = "SELECT f FROM Fact f"),
     @NamedQuery(name = Fact.GET_ALL_FACTS_ORG, query = "SELECT f FROM Fact f WHERE :idOrg = f.organization.id"),
-    @NamedQuery(name = Fact.GET_TOTAL_OBS_SENSOR, query = "SELECT f.id FROM Fact f WHERE f.sensor.id = :idSen AND f.type = :ftype"),
-    @NamedQuery(name = Fact.GET_FACTS_BY_DATE, query = "SELECT f.id FROM Fact f WHERE f.creationDate = :dateToShow AND f.type = :ftype")
+    @NamedQuery(name = Fact.GET_TOTAL_OBS_SENSOR, query = "SELECT f.id FROM Fact f WHERE f.sensor.id = :idSen AND f.type = :ftype AND f.sensorType = :sensorType"),
+    @NamedQuery(name = Fact.GET_FACTS_BY_DATE, query = "SELECT f.id FROM Fact f WHERE f.creationDate = :dateToShow AND f.sensor.id = :idSen AND f.type = :ftype AND f.sensorType = :sensorType"),
 })
 
 @Entity
@@ -58,6 +55,8 @@ public class Fact implements Serializable {
     
     @ManyToOne
     private Sensor sensor;
+    
+    private String sensorType;
     
 
     public Fact(long id, String information, String type, String visibility, 
@@ -130,5 +129,17 @@ public class Fact implements Serializable {
     public Date getDate() {
         return creationDate;
     }
+
+
+    public String getSensorType() {
+        return sensorType;
+    }
+
+
+    public void setSensorType(String sensorType) {
+        this.sensorType = sensorType;
+    }
+    
+    
     
 }

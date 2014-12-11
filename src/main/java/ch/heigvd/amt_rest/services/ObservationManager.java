@@ -75,7 +75,8 @@ public class ObservationManager implements ObservationManagerLocal {
         Query q;
         q = em.createNamedQuery(Fact.GET_TOTAL_OBS_SENSOR)
                 .setParameter("ftype", Fact.COUNTER)
-                .setParameter("idSen", o.getSensor().getId());
+                .setParameter("idSen", o.getSensor().getId())
+                .setParameter("sensorType", o.getSensor().getType());
         
         if(q.getResultList().isEmpty()){
             Fact f = new Fact();
@@ -85,6 +86,7 @@ public class ObservationManager implements ObservationManagerLocal {
             f.setType(Fact.COUNTER);
             f.setVisibility(Fact.VISIBILITY_ALL);
             f.setDate(Date.valueOf(new LocalDate().toString()));
+            f.setSensorType(o.getSensor().getType());
             em.persist(f);
         }
         else{
@@ -92,7 +94,7 @@ public class ObservationManager implements ObservationManagerLocal {
             info+=1;
             Fact f2= em.find(Fact.class, q.getSingleResult());
             f2.setInformation(String.valueOf(info));
-            em.merge(f2);
+            //em.merge(f2);
             
         }
         
@@ -105,7 +107,9 @@ public class ObservationManager implements ObservationManagerLocal {
         
         q = em.createNamedQuery(Fact.GET_FACTS_BY_DATE)
                 .setParameter("dateToShow", t)
-                .setParameter("ftype", Fact.DATE_COUNTER);
+                .setParameter("ftype", Fact.DATE_COUNTER)
+                .setParameter("idSen", o.getSensor().getId())
+                .setParameter("sensorType", o.getSensor().getType());
         
         if(q.getResultList().isEmpty()){
             Fact f = new Fact();
@@ -114,6 +118,9 @@ public class ObservationManager implements ObservationManagerLocal {
             f.setSensor(null);
             f.setType(Fact.DATE_COUNTER);
             f.setVisibility(Fact.VISIBILITY_ALL);
+            f.setSensor(o.getSensor());
+            f.setOrganization(o.getSensor().getOrganization());
+            f.setSensorType(o.getSensor().getType());
             f.setDate(Date.valueOf(new LocalDate().toString()));
             em.persist(f);
         }
@@ -122,7 +129,7 @@ public class ObservationManager implements ObservationManagerLocal {
             info+=1;
             Fact f2= em.find(Fact.class, q.getSingleResult());
             f2.setInformation(String.valueOf(info));
-            em.merge(f2);
+            //em.merge(f2);
         }
     }
 }

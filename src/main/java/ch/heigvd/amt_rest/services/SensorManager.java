@@ -28,6 +28,7 @@ public class SensorManager implements SensorManagerLocal {
     public List<Sensor> findSensors(Long idOrg) {
         
         Query q;
+        
         if(idOrg == null)
             q = em.createNamedQuery(Sensor.GET_ALL_SENSORS);
         else

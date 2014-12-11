@@ -5,20 +5,22 @@
  */
 package ch.heigvd.amt_rest.test;
 
+import ch.heigvd.amt_rest.model.Fact;
 import ch.heigvd.amt_rest.model.Observation;
 import ch.heigvd.amt_rest.model.Organization;
 import ch.heigvd.amt_rest.model.Sensor;
 import ch.heigvd.amt_rest.model.User;
+import ch.heigvd.amt_rest.services.FactManagerLocal;
 import ch.heigvd.amt_rest.services.ObservationManagerLocal;
 import ch.heigvd.amt_rest.services.OrganizationManagerLocal;
 import ch.heigvd.amt_rest.services.SensorManagerLocal;
 import ch.heigvd.amt_rest.services.UserManagerLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -43,6 +45,8 @@ public class TestingServlet extends HttpServlet {
     SensorManagerLocal sManager;
     @EJB
     ObservationManagerLocal obsManager;
+    @EJB
+    FactManagerLocal fManager;
 
     ConcurrentLinkedQueue <Sensor> listSensors = new ConcurrentLinkedQueue<>();
 
@@ -86,7 +90,7 @@ public class TestingServlet extends HttpServlet {
         u3.setOrganization(org2);
         uManager.createUser(u3);
         
-        Sensor s;
+        Sensor s = new Sensor();
 
         //Sensors org 1
         for (int i = 0; i < 10; i++) {
@@ -111,7 +115,18 @@ public class TestingServlet extends HttpServlet {
             sManager.createSensor(s);
             listSensors.add(s);
         }
-
+        
+        Fact f = new Fact();
+        f.setDate(new Date(1333333334));
+        f.setInformation("dsadsa");
+        f.setOrganization(org2);
+        f.setType(Fact.DATE_COUNTER);
+        f.setSensor(s);
+        f.setSensorType(s.getType());
+        f.setVisibility("all");
+        
+        fManager.createFact(f);
+        
         new Thread() {
 
             Observation obs;
@@ -127,7 +142,6 @@ public class TestingServlet extends HttpServlet {
                             obs.setTimeS(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
                             obs.setValueObservation(randDbl());
                             obsManager.createObservation(obs);
-                            
                         }
                     }
                 } catch (Exception ex) {
