@@ -143,7 +143,6 @@ public class TestingServlet extends HttpServlet {
                             obs.setValueObservation(randDbl());
                             obsManager.createObservation(obs);
                             count--;
-                            
                         }
                         if(count < 0)
                             break;
