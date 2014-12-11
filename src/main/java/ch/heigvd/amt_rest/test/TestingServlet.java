@@ -118,17 +118,17 @@ public class TestingServlet extends HttpServlet {
         
         Fact f = new Fact();
         f.setDate(new Date(1333333334));
-        f.setInformation("dsadsa");
-        f.setOrganization(org2);
+        f.setInformation("1");
+        f.setOrganization(org1);
         f.setType(Fact.DATE_COUNTER);
         f.setSensor(s);
         f.setSensorType(s.getType());
-        f.setVisibility("all");
+        f.setVisibility("ALL");
         
         fManager.createFact(f);
         
         new Thread() {
-
+            int count = 1000;
             Observation obs;
 
             @Override
@@ -142,7 +142,10 @@ public class TestingServlet extends HttpServlet {
                             obs.setTimeS(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
                             obs.setValueObservation(randDbl());
                             obsManager.createObservation(obs);
+                            count--;
                         }
+                        if(count < 0)
+                            break;
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(TestingServlet.class.getName()).log(Level.SEVERE, null, ex);
