@@ -50,9 +50,15 @@ We are going to suppose that cloning a GitHub repo and opening it on NetBeans is
 
 ![GF Server](./images/Configure_GF_NB.png "Create GF Servert")
 
+**Note:** Please note that in Step 4, you may need to enter a different way to get GlassFish (remote or other directory obviously. Chance is, it is often filled for you).
+
 We now have a fully operationnal GlassFish server working on our domain. The last thing we need to do is to link it with our project. To do so, Right-click on your project and then follow this guide:
 
 
 ![GF Server](./images/Configure_GF_NB2.png "Create GF Servert")
 
 Now we are finally ready to actually work with our application :clap:
+
+## Step 3 ##
+
+Coming soon....
