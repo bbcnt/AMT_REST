@@ -14,4 +14,31 @@ For the sensor number 20, we have 3 facts, the first one is a fact counting the 
 **Note:** in the DATE_COUNTER observations, there will be other infos (min,max and average value), but this was just to have an easy example.
 
 ## Step 1
-Enough babbling, let's start this. The first thing to do is to use the script dbScriptREST.sh to generate all the basic structure (glassfish domains, database, etc).
+Enough babbling, let's start this. The first thing to do is to use the script dbScriptREST.sh to generate all the basic structure (glassfish domains, database, etc). You can find it in the [/scripts](https://github.com/bbcnt/AMT_REST/tree/master/scripts) path of this repo. Also, you'll need to edit a few values inside the script, so make sure you know:
+ 
+1. The path to MySQL on your host
+2. The path to Glassfish on your host
+3. Where the mysql-connector.jar is (you can find it in the path [/jars](https://github.com/bbcnt/AMT_REST/tree/master/jars) of this repo)
+
+Once you know this, open the script and change the 3 variables on top, as in this example:
+
+    #Your MySQL bin directory
+	MYSQL_BIN_DIR=/cygdrive/c/wamp/bin/mysql/mysql5.6.12/bin
+
+	#Your Glassfish bin directory
+	GLASSFISH_BIN_DIR=/cygdrive/c/Users/brito_000/GlassFish_Server/glassfish/bin
+
+	#Your path to the mysql-connector
+	MYSQL_CONN_JAR=/cygdrive/c/Users/brito_000/GlassFish_Server/mysql-connector-java-5.1.33/mysql-connector-java-5.1.33/mysql-connector-java-5.1.33-bin.jar
+
+You can now execute the script (on Windows, use [cygwin](https://www.cygwin.com/ "cygwin"), as an admin, of course).
+
+    brito_000@BBC-Lenovo ~
+	$ cd /cygdrive/c/Users/brito_000/
+
+	brito_000@BBC-Lenovo /cygdrive/c/Users/brito_000
+	 ./dbScriptREST.sh
+
+If everything worked fine, you now have a new domain called domainAMTREST and a new database, called AMTDatabaseREST.
+
+First part, OK :D
