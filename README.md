@@ -13,12 +13,12 @@ For the sensor number 20, we have 3 facts, the first one is a fact counting the 
 
 **Note:** in the DATE_COUNTER observations, there will be other infos (min,max and average value), but this was just to have an easy example.
 
-## Step 1
+## Step 1##
 Enough babbling, let's start this. The first thing to do is to use the script dbScriptREST.sh to generate all the basic structure (glassfish domains, database, etc). You can find it in the [/scripts](https://github.com/bbcnt/AMT_REST/tree/master/scripts) path of this repo. Also, you'll need to edit a few values inside the script, so make sure you know:
  
 1. The path to MySQL on your host
 2. The path to Glassfish on your host
-3. Where the mysql-connector.jar is (you can find it in the path [/jars](https://github.com/bbcnt/AMT_REST/tree/master/jars) of this repo)
+3. Where the mysql-connector.jar is (you can find it in the path [/jars](https://github.com/bbcnt/AMT_REST/tree/master/jarS) of this repo)
 
 Once you know this, open the script and change the 3 variables on top, as in this example:
 
@@ -41,4 +41,18 @@ You can now execute the script (on Windows, use [cygwin](https://www.cygwin.com/
 
 If everything worked fine, you now have a new domain called domainAMTREST and a new database, called AMTDatabaseREST.
 
-First part, OK :D
+First part, OK :+1:
+
+## Step 2 ##
+So far, so good, the next step now is to clone the GitHub repo and make it work. Also, there are a few settings we have to change for Glassfish to work. There we go.
+
+We are going to suppose that cloning a GitHub repo and opening it on NetBeans is common knowledge so we won't be spending a lot of time on this. From now on, we'll call this project on NetBeans, "**AMT_REST**". So, once it has been imported, the first thing we are going to do is to create a new GlassFish server that will be working on the newly created domain. To do so, just follow the following guide (do the shown step then press Next and Finish at the end):
+
+![GF Server](./images/Configure_GF_NB.png "Create GF Servert")
+
+We now have a fully operationnal GlassFish server working on our domain. The last thing we need to do is to link it with our project. To do so, Right-click on your project and then follow this guide:
+
+
+![GF Server](./images/Configure_GF_NB2.png "Create GF Servert")
+
+Now we are finally ready to actually work with our application :clap:
