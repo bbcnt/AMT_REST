@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.heigvd.amt_rest.model;
 
 import java.io.Serializable;
@@ -15,24 +10,35 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-/**
- *
- * @author brito_000
- */
 
 @NamedQueries({
-    @NamedQuery(name = Observation.GET_ALL_OBSERVATIONS, query = "SELECT o FROM Observation o"),
-    @NamedQuery(name = Observation.GET_ALL_OBSERVATIONS_SENSOR, query = "SELECT o FROM Observation o WHERE o.sensor.id = :idSen"),
-    @NamedQuery(name = Observation.GET_ALL_OBSERVATIONS_ORGANIZATION, query = "SELECT o FROM Observation o WHERE o.sensor.organization.id = :idOrg")
+    @NamedQuery(name = Observation.GET_ALL_OBSERVATIONS, query = "SELECT o FROM "
+            + "Observation o"),
+    @NamedQuery(name = Observation.GET_ALL_OBSERVATIONS_SENSOR, query = "SELECT o "
+            + "FROM Observation o WHERE o.sensor.id = :idSen"),
+    @NamedQuery(name = Observation.GET_ALL_OBSERVATIONS_ORGANIZATION, query = 
+            "SELECT o FROM Observation o WHERE o.sensor.organization.id = :idOrg")
 })
 
-
+/**
+ * An observation is an information sent by a sensor, containing a value
+ * and a date of creation. Users can querry the REST API to get these 
+ * observations or facts, that are directly derived from observations.
+ */
 @Entity
 public class Observation implements Serializable {
     
-    public static final String GET_ALL_OBSERVATIONS = "Observation.get_all_observations";
-    public static final String GET_ALL_OBSERVATIONS_SENSOR = "Observation.get_all_observations_sensor";
-    public static final String GET_ALL_OBSERVATIONS_ORGANIZATION = "Observation.get_all_observations_organization";
+    //Gets all the observations
+    public static final String GET_ALL_OBSERVATIONS = 
+            "Observation.get_all_observations";
+    
+    //Gets all the observation for a given sensor
+    public static final String GET_ALL_OBSERVATIONS_SENSOR = 
+            "Observation.get_all_observations_sensor";
+    
+    //Gets all the observations for a given organization
+    public static final String GET_ALL_OBSERVATIONS_ORGANIZATION = 
+            "Observation.get_all_observations_organization";
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

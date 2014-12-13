@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.heigvd.amt_rest.model;
 
 import java.io.Serializable;
@@ -15,20 +10,26 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
- *
- * @author brito_000
+ * A sensor is an object that can collect data and push observations.
+ * This API's main objective is to collect these observations, creates infos, 
+ * known as facts and put them at the disposal of the users.
  */
 
 @NamedQueries({
-    @NamedQuery(name = Sensor.GET_ALL_SENSORS, query = "SELECT s FROM Sensor s"),
-    @NamedQuery(name = Sensor.GET_ALL_SENSORS_ORG, query = "SELECT s FROM Sensor s WHERE s.organization.id = :idOrg")
+    @NamedQuery(name = Sensor.GET_ALL_SENSORS, query = 
+            "SELECT s FROM Sensor s"),
+    @NamedQuery(name = Sensor.GET_ALL_SENSORS_ORG, query = 
+            "SELECT s FROM Sensor s WHERE s.organization.id = :idOrg")
 })
 
 @Entity
 public class Sensor implements Serializable {
     
     
+    //Gets all the sensors
     public static final String GET_ALL_SENSORS = "Sensor.get_all_sensors";
+    
+    //Gets all the sensors from a given organization
     public static final String GET_ALL_SENSORS_ORG = "Sensor.get_all_sensors_org";
     
     @Id

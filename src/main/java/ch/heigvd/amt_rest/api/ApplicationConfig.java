@@ -10,7 +10,7 @@ import javax.ws.rs.core.Application;
 
 /**
  *
- * @author brito_000
+ * Generating an easy WebServlet for us
  */
 
 @javax.ws.rs.ApplicationPath("api")

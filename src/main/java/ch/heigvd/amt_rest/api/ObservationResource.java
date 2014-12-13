@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.heigvd.amt_rest.api;
 
 import ch.heigvd.amt_rest.dto.ObservationDTO;
@@ -23,9 +18,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-/**
- *
- * @author brito_000
+/*
+ * Observation ressource. Enables the API user to work with observations.
+ * Mostly used by sensors to push observations, this resource also implements
+ * the full CRUD operations.
+ * Authors: Bignens Julien & Brito Carvalho Bruno
  */
 @Path("observations")
 @Stateless
@@ -43,8 +40,16 @@ public class ObservationResource {
     
     @GET
     @Produces("application/json")
-    public List<ObservationDTO> getObservation(@QueryParam("sensorid") Long idSen,
-                                               @QueryParam("organizationid") Long idOrg)
+    /**
+     * returns a list of Observations using the various criterias
+     * @param idOrg id of an organization
+     * @param idSen id of a sensor
+     * @return List<ObservationDTO> list of observations
+     */
+    public List<ObservationDTO> getObservation(@QueryParam("sensorid") 
+                                                    Long idSen,
+                                               @QueryParam("organizationid") 
+                                                    Long idOrg)
     {
         List<Observation> observations = oManager.findObservations(idSen, idOrg);
         List<ObservationDTO> results = new LinkedList<>();
@@ -58,12 +63,22 @@ public class ObservationResource {
     @Path("/{id}")
     @GET
     @Produces("application/json")
+    /**
+     * returns an observation using the provided id
+     * @param id id of the wanted observation
+     * @return an observationDTO
+     */
     public ObservationDTO getObservation (@PathParam("id") long id){
         return toDTO(oManager.findObservation(id));
     }
     
     @POST
     @Consumes("application/json")
+    /**
+     * Creates an Observation using the provided ObservationDTO
+     * @param oDTO the Observation provided by the user
+     * @return long the id of the created Observation
+     */
     public long createObservation(ObservationDTO oDTO){
         Observation o = toObservation(oDTO);
         return oManager.createObservation(o);
@@ -72,16 +87,29 @@ public class ObservationResource {
     @Path("/{id}")
     @PUT 
     @Produces("application/json")
+    /**
+     * Updates an Observation using the provided ObservationDTO
+     * @param oDTO the Observation provided by the user
+     */
     public void updateObservation(ObservationDTO oDTO){
         oManager.updateObservation(toObservation(oDTO));
     }
     
     @Path("/{id}")
     @DELETE
+    /**
+     * Deletes an Observation using the provided ObservationDTO
+     * @param id the id of the Observation to delete
+     */
     public void deleteObservation(@PathParam("id") long id){
         oManager.deleteObservation(id);
     }
     
+    /**
+     * Converts an Observation into a ObservationDTO
+     * @param o the Observation to be converted into an ObservationDTO
+     * @return ObservationDTO an ObservationDTO
+     */
     private ObservationDTO toDTO(Observation o){
         ObservationDTO oDTO = new ObservationDTO();
         oDTO.setId(o.getId());
@@ -91,7 +119,11 @@ public class ObservationResource {
         
         return oDTO;
     }
-    
+    /**
+    * Converts an ObservationDTO into an Observation
+    * @param oDTO the ObservationDTO to be converted into an Observation
+    * @return Observation an observation
+    */ 
     private Observation toObservation(ObservationDTO oDTO) {
         Observation o = new Observation();
         o.setId(oDTO.getId());

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.heigvd.amt_rest.test;
 
 import ch.heigvd.amt_rest.model.Fact;
@@ -32,7 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author brito_000
+ * This servlet is used to test the application. To be used,
+ * simply go to http://localhost:8080/AMT_REST/test
  */
 @WebServlet(name = "TestingServlet", urlPatterns = {"/test"})
 public class TestingServlet extends HttpServlet {
@@ -50,6 +46,10 @@ public class TestingServlet extends HttpServlet {
 
     ConcurrentLinkedQueue <Sensor> listSensors = new ConcurrentLinkedQueue<>();
 
+    /**
+     * His method returns a double value (used to generate observations)
+     * @return double a double value
+     */
     public static double randDbl() {
 
     // NOTE: Usually this should be a field rather than a method
@@ -66,9 +66,11 @@ public class TestingServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //Creating a first organization
         Organization org1 = new Organization();
         org1.setName("Org1");
 
+        //Creating a user and linking him to the organization
         User u1 = new User();
         u1.setName("John");
         u1.setOrganization(org1);
@@ -76,20 +78,24 @@ public class TestingServlet extends HttpServlet {
         orgManager.createOrganization(org1);
         uManager.createUser(u1);
 
+        //An other used
         User u2 = new User();
         u2.setName("Paul");
         u2.setOrganization(org1);
         uManager.createUser(u2);
 
+        //A new organization
         Organization org2 = new Organization();
         org2.setName("Org2");
         orgManager.createOrganization(org2);
          
+        //And another one
         User u3 = new User();
         u3.setName("Marie");
         u3.setOrganization(org2);
         uManager.createUser(u3);
         
+        //Here we create 20 sensors
         Sensor s = new Sensor();
 
         //Sensors org 1
@@ -116,10 +122,12 @@ public class TestingServlet extends HttpServlet {
             listSensors.add(s);
         }
         
+        //This is a test fact (date somewhere in the 1970), to see that different
+        //facts are created in function of the date.
         Fact f = new Fact();
-        f.setDate(new Date(1333333334));
-        f.setInformation("1");
-        f.setOrganization(org1);
+        f.setDate(new Date(333333333));
+        f.setInformation("A test fact, just to see that facts are separated by date");
+        f.setOrganization(org2);
         f.setType(Fact.DATE_COUNTER);
         f.setSensor(s);
         f.setSensorType(s.getType());
@@ -127,6 +135,7 @@ public class TestingServlet extends HttpServlet {
         
         fManager.createFact(f);
         
+        //Here we create 1020 observations (51 per sensor)
         new Thread() {
             int count = 1000;
             Observation obs;
@@ -135,17 +144,19 @@ public class TestingServlet extends HttpServlet {
             synchronized public void  run() {
                 try {
                     while (true) {
+                        if(count < 0)
+                            break;
                         for (Sensor s : listSensors) {
+                            count--;
                             //TimeUnit.SECONDS.sleep(3);
                             obs = new Observation();
                             obs.setSensor(s);
                             obs.setTimeS(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
                             obs.setValueObservation(randDbl());
                             obsManager.createObservation(obs);
-                            count--;
+                            
                         }
-                        if(count < 0)
-                            break;
+                        
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(TestingServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -162,7 +173,7 @@ public class TestingServlet extends HttpServlet {
             out.println("<title>Servlet TestingServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestingServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h2>The test was launched, you can now check your database" + "</h2>");
             out.println("</body>");
             out.println("</html>");
         }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.heigvd.amt_rest.api;
 
 import ch.heigvd.amt_rest.dto.FactDTO;
@@ -30,12 +25,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-/**
- *
- * @author brito_000
- */
 @Path("facts")
 @Stateless
+/*
+ * Fact ressource. Enables the API user to work with Facts.
+ * CRUD operations have been implemented, but should not be used.
+ * Users only need to consult the facts, not edit them.
+ * Authors: Bignens Julien & Brito Carvalho Bruno
+ */
 public class FactResource {
     
     @EJB
@@ -53,14 +50,31 @@ public class FactResource {
     
     @GET
     @Produces("application/json")
+    /**
+     * returns a list of Facts using the various criterias
+     * @param idOrg id of an organization
+     * @param idSen id of a sensor
+     * @param ldate the date of the given fact (format : yyyy-MM-d)
+     * @throws ParseException error in parsing the value of the date
+     * @return List<FactDTO> list of factsDTO 
+     * 
+     */
     public List<FactDTO> getFacts(@QueryParam("organizationid") Long idOrg,
                                   @QueryParam("sensorid") Long idSen,
-                                  @QueryParam("date") String ldate) throws ParseException
+                                  @QueryParam("date") String ldate) 
+                                  throws ParseException
     {
         
+        //Casting the received date in String, to the Date format.
+        Date receivedDate;
+        if(!(ldate == null)){
+            DateFormat format = new SimpleDateFormat("yyyy-MM-d", 
+                Locale.ENGLISH);
+            receivedDate = format.parse(ldate);
+        }
+        else
+            receivedDate = null;
         
-        DateFormat format = new SimpleDateFormat("yyyy-MM-d", Locale.ENGLISH);
-        Date receivedDate = format.parse(ldate);
         List<Fact> facts = fManager.findFacts(idOrg, idSen, receivedDate);
         List<FactDTO> results = new LinkedList<>();
 
@@ -73,12 +87,22 @@ public class FactResource {
     @Path("/{id}")
     @GET
     @Produces("application/json")
+    /**
+     * returns a Fact using the provided id
+     * @param id id of the wanted fact
+     * @return a FactDTO
+     */
     public FactDTO getFact (@PathParam("id") long id){
         return toDTO(fManager.findFact(id));
     }
     
     @POST
     @Consumes("application/json")
+    /**
+     * Creates a Fact using the provided FactDTO
+     * @param fDTO the Fact provided by the user
+     * @return long the id of the created fact
+     */
     public long createFact(FactDTO fDTO){
         Fact f = toFact(fDTO);
         return fManager.createFact(f);
@@ -87,16 +111,29 @@ public class FactResource {
     @Path("/{id}")
     @PUT 
     @Produces("application/json")
+    /**
+     * Updates a Fact using the provided FactDTO
+     * @param fDTO the Fact provided by the user
+     */
     public void updateFact(FactDTO fDTO){
         fManager.updateFact(toFact(fDTO));
     }
     
     @Path("/{id}")
     @DELETE
+    /**
+     * Deletes a Fact using the provided id
+     * @param id the Fact provided by the user
+     */
     public void deleteFact(@PathParam("id") long id){
         fManager.deleteFact(id);
     }
     
+    /**
+     * Converts a Fact into a FactDTO
+     * @param f the Fact to be converted into a FactDTO
+     * @return FactDTO a factDTO
+     */
     private FactDTO toDTO(Fact f){
         FactDTO fDTO = new FactDTO();
         fDTO.setId(f.getId());
@@ -109,6 +146,11 @@ public class FactResource {
         return fDTO;
     }
     
+    /**
+     * Converts a FactDTO into a Fact
+     * @param fDTO the FactDTO to be converted into a Fact
+     * @return Fact a fact
+     */
     private Fact toFact(FactDTO fDTO) {
         Fact f = new Fact();
         f.setId(fDTO.getId());

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.heigvd.amt_rest.model;
 
 import java.io.Serializable;
@@ -16,12 +11,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- *
- * @author brito_000
+ * A User is ... a user. They should be able to login within the API and 
+ * get observations and facts from their organization. This is not implemented
+ * thus far, so everyone can see everything.
  */
 @NamedQueries({
     @NamedQuery(name = User.GET_ALL_USERS, query = "SELECT u FROM User u"),
-    @NamedQuery(name = User.GET_ALL_USERS_ORG, query = "SELECT u FROM User u WHERE u.organization.id = :idOrg")
+    @NamedQuery(name = User.GET_ALL_USERS_ORG, query = 
+            "SELECT u FROM User u WHERE u.organization.id = :idOrg")
 
 })
 
@@ -29,11 +26,14 @@ import javax.persistence.Table;
 @Table(name="userAPI")
 public class User implements Serializable {
     
+    //Gets all the users
     public static final String GET_ALL_USERS = "User.get_all_users";
+    
+    //gets all the users for a given organization
     public static final String GET_ALL_USERS_ORG = "User.get_all_users_org";
     
     @Id
-     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     private String name;
     

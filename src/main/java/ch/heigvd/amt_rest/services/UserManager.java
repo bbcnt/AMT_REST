@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.heigvd.amt_rest.services;
 
 import ch.heigvd.amt_rest.model.Organization;
@@ -12,11 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
-/**
- *
- * @author brito_000
- */
 @Stateless
 public class UserManager implements UserManagerLocal {
 
@@ -32,8 +22,12 @@ public class UserManager implements UserManagerLocal {
     public List<User> findUsers(Long idOrg) {
         
         Query q;
+        
+        //Get all the users
         if(idOrg == null)
             q = em.createNamedQuery(User.GET_ALL_USERS);
+        
+        //Get all the users from a given organization
         else
         {
             q = em.createNamedQuery(User.GET_ALL_USERS_ORG);

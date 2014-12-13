@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.heigvd.amt_rest.services;
 
 import ch.heigvd.amt_rest.model.Fact;
@@ -14,11 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.joda.time.LocalDate;
+import org.json.*;
 
-/**
- *
- * @author brito_000
- */
 @Stateless
 public class ObservationManager implements ObservationManagerLocal {
 
@@ -35,13 +27,18 @@ public class ObservationManager implements ObservationManagerLocal {
             
         Query q;
         
+        //if no param were given
         if(idSen == null && idOrg == null)
             q = em.createNamedQuery(Observation.GET_ALL_OBSERVATIONS);
+        
+        //if an organization id was given (we don't care about the sensor here)
+        //because having a sensor would mean the same as only specifiying
+        //the sensor id
         else if(idOrg != null){
             q = em.createNamedQuery(Observation.GET_ALL_OBSERVATIONS_ORGANIZATION);
             q.setParameter("idOrg", idOrg);    
         }
-        //We assume here that t
+        //We assume here that the organization id is redundant
         else if(idSen != null){
             q = em.createNamedQuery(Observation.GET_ALL_OBSERVATIONS_SENSOR);
             q.setParameter("idSen", idSen);
@@ -90,6 +87,7 @@ public class ObservationManager implements ObservationManagerLocal {
             em.persist(f);
         }
         else{
+            
             int info = Integer.parseInt(em.find(Fact.class, q.getSingleResult()).getInformation());
             info+=1;
             Fact f2= em.find(Fact.class, q.getSingleResult());
@@ -112,8 +110,15 @@ public class ObservationManager implements ObservationManagerLocal {
                 .setParameter("sensorType", o.getSensor().getType());
         
         if(q.getResultList().isEmpty()){
+            
+            JSONObject obj = new JSONObject();
+            obj.put("counter", "1").toString();
+            obj.put("min", o.getValueObservation()).toString();
+            obj.put("max", o.getValueObservation()).toString();
+            obj.put("avg", o.getValueObservation()).toString();
+            
             Fact f = new Fact();
-            f.setInformation("1");
+            f.setInformation(obj.toString());
             f.setOrganization(null);
             f.setSensor(null);
             f.setType(Fact.DATE_COUNTER);
@@ -125,10 +130,32 @@ public class ObservationManager implements ObservationManagerLocal {
             em.persist(f);
         }
         else{
-            int info = Integer.parseInt(em.find(Fact.class, q.getSingleResult()).getInformation());
-            info+=1;
+            
+            String info = em.find(Fact.class, 
+                q.getSingleResult()).getInformation();
+
+            JSONObject obj = new JSONObject(info);
+            
+            int counter = obj.getInt("counter");
+            counter++;
+            double min = obj.getDouble("min");
+            double max = obj.getDouble("max");
+            double avg = obj.getDouble("avg");
+            
+            if(o.getValueObservation() > max) max = o.getValueObservation();
+            if(o.getValueObservation() < min) min = o.getValueObservation();
+            avg = (avg + o.getValueObservation())/ 2;
+            
+            JSONObject obj2 = new JSONObject();
+            
+            obj2.put("counter", counter).toString();
+            obj2.put("min", min);
+            obj2.put("max", max);
+            obj2.put("avg", avg);
+            
             Fact f2= em.find(Fact.class, q.getSingleResult());
-            f2.setInformation(String.valueOf(info));
+            //f2.setInformation(infoToWrite);
+            f2.setInformation(obj2.toString());
             //em.merge(f2);
         }
     }

@@ -34,15 +34,24 @@ public class FactManager implements FactManagerLocal {
     public List<Fact> findFacts(Long idOrg, Long idSen, Date ldate) {
         
         Query q;
-        if(idOrg == null && idSen == null && ldate == null)
+        
+        //If no param were specified
+        if(idOrg == null && idSen == null && ldate == null){
             q = em.createNamedQuery(Fact.GET_ALL_FACTS);
+            return q.getResultList();
+        }
+            
+        //Only an organization id was specified
         else if(idSen == null && idOrg != null && ldate == null){
             q = em.createNamedQuery(Fact.GET_ALL_FACTS_ORG);
             q.setParameter("idOrg", idOrg);
         }
+        
+        //Only a sensor id was specified
         else if(idSen != null && idOrg == null && ldate == null){
             q = em.createNamedQuery(Fact.GET_TOTAL_OBS_SENSOR);
             q.setParameter("idSen", idSen);
+            q.setParameter("sensorType", em.find(Sensor.class, idSen).getType());
             q.setParameter("ftype", Fact.COUNTER);
             
             Long id = (Long) q.getSingleResult();
@@ -50,6 +59,8 @@ public class FactManager implements FactManagerLocal {
             list.add(em.find(Fact.class, id));
             return list;
         }
+        
+        //A sensor id and a date were specified
         else if(idSen != null && idOrg == null && ldate != null){
             q = em.createNamedQuery(Fact.GET_FACTS_BY_DATE);
             q.setParameter("idSen", idSen);
