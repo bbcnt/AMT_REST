@@ -48,14 +48,14 @@ So far, so good, the next step now is to clone the GitHub repo and make it work.
 
 We are going to suppose that cloning a GitHub repo and opening it on NetBeans is common knowledge so we won't be spending a lot of time on this. From now on, we'll call this project on NetBeans, "**AMT_REST**". So, once it has been imported, the first thing we are going to do is to create a new GlassFish server that will be working on the newly created domain. To do so, just follow the following guide (do the shown step then press Next and Finish at the end):
 
-![GF Server](./images/Configure_GF_NB.png "Create GF Servert")
+![GF Server](./images/Configure_GF_NB.png "Create GF Server")
 
 **Note:** Please note that in Step 4, you may need to enter a different way to get GlassFish (remote or other directory obviously. Chance is, it is often filled for you).
 
 We now have a fully operationnal GlassFish server working on our domain. The last thing we need to do is to link it with our project. To do so, Right-click on your project and then follow this guide:
 
 
-![GF Server](./images/Configure_GF_NB2.png "Create GF Servert")
+![GF Server](./images/Configure_GF_NB2.png "Create GF Server")
 
 Now we are finally ready to actually work with our application :clap:
 
