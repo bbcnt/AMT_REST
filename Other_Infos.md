@@ -48,7 +48,7 @@ A WebServlet has been created to test the working infrastructure. To be able to 
 We will now start doing some basic GET tests with [POSTMAN](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm). For example GET on all users :
 
     
-![GET USERS](./images/GET_Users.PNG "GET USERS")
+![GET USERS](./images/GET_Users.png "GET USERS")
 
 As you can see, the way to use the API is to access : 
 
@@ -62,7 +62,7 @@ And then complete it with the values you want, for instance:
 
 For the last example, we are using query params, to be able to make our research more precise. In this case, the content we get is : 
 
-![GET USERS](./images/GET_Users_ORG1.PNG "GET USERS")
+![GET USERS](./images/GET_Users_ORG1.png "GET USERS")
 
 Marie, which is part of Org2, is not shown because we want all users from the organization of id "1", which is Org1. Pretty easy, no? To access the full list of these query params and all the different HTTP methodes available, consult our official API documentation.
 
