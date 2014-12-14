@@ -86,7 +86,6 @@ public class UserResource {
         
     }
     
-    @Path("/{id}")
     @PUT
     @Produces("application/json")
     /**

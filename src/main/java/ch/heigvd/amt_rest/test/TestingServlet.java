@@ -122,38 +122,37 @@ public class TestingServlet extends HttpServlet {
             listSensors.add(s);
         }
         
-        /*  Testing the Fact2, we create a server, make some observations, then
+        /*  Testing the Fact1, we create a server, make some observations, then
             change the type of its observation and see if it creates a new Fact 
-            (because a Fact2 depends on the sensor, its type of observation and 
-            the date). */
+            (because a Fact2 depends on the sensor, but also its type */
         
-        Sensor sf2 = new Sensor();
+        Sensor sf1 = new Sensor();
         
-        sf2.setName("sensor_TestF2");
-        sf2.setOrganization(org1);
-        sf2.setType("THERMO");
-        sf2.setVisibility("All");
-        sf2.setDescription("None, really");
-        sManager.createSensor(sf2);
+        sf1.setName("sensor_TestF2");
+        sf1.setOrganization(org1);
+        sf1.setType("THERMO");
+        sf1.setVisibility("All");
+        sf1.setDescription("None, really");
+        sManager.createSensor(sf1);
         
         Observation obsf2 = new Observation();
-        obsf2.setSensor(sf2);
+        obsf2.setSensor(sf1);
         obsf2.setTimeS(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
         obsf2.setValueObservation(randDbl());
         obsManager.createObservation(obsf2);
         
-        sf2.setType("New Type");
+        sf1.setType("New Type");
         
-        Observation obsf2_2 = new Observation();
-        obsf2_2.setSensor(sf2);
-        obsf2_2.setTimeS(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
-        obsf2_2.setValueObservation(randDbl());
-        obsManager.createObservation(obsf2_2);
+        Observation obsf1_2 = new Observation();
+        obsf1_2.setSensor(sf1);
+        obsf1_2.setTimeS(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+        obsf1_2.setValueObservation(randDbl());
+        obsManager.createObservation(obsf1_2);
         
-        /* End of Fact2 test */
+        /* End of Fact1 test */
         
         //This is a test fact (date somewhere in the 1970), to see that different
-        //facts are created in function of the date.
+        //facts are created in function of the date. We now are testing Fact2
         Fact f = new Fact();
         f.setDate(new Date(333333333));
         f.setInformation("A test fact, just to see that facts are separated by date");
@@ -164,6 +163,9 @@ public class TestingServlet extends HttpServlet {
         f.setVisibility("ALL");
         
         fManager.createFact(f);
+        
+        /* End of Fact2 tests */
+        
         
         //Here we create 1020 observations (51 per sensor)
         new Thread() {
@@ -194,6 +196,7 @@ public class TestingServlet extends HttpServlet {
             }
         }.start();
 
+        /* This part is only cosmetic, not useful in the test */
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */

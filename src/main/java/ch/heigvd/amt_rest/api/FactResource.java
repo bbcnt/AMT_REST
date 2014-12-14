@@ -107,7 +107,6 @@ public class FactResource {
         return fManager.createFact(f);
     }
     
-    @Path("/{id}")
     @PUT 
     @Produces("application/json")
     /**

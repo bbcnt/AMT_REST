@@ -84,7 +84,6 @@ public class ObservationResource {
         return oManager.createObservation(o);
     }
     
-    @Path("/{id}")
     @PUT 
     @Produces("application/json")
     /**

@@ -82,7 +82,6 @@ public class OrganizationResource {
         return oManager.createOrganization(o);
     }
     
-    @Path("/{id}")
     @PUT 
     @Produces("application/json")
     /**

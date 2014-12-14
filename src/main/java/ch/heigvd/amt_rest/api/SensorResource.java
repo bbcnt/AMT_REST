@@ -80,7 +80,6 @@ public class SensorResource {
         return sManager.createSensor(s);
     }
     
-    @Path("/{id}")
     @PUT
     @Produces("application/json")
     
