@@ -115,3 +115,27 @@ This is the end of this little introduction. Its objective was to explain (light
 First link is the RAML documentation where you can find all the available REST commands of our project.
 
 The second link is a documentation where we test all the GET methods and clarify a few things about Fact1 and Fact2, mostly, why we decided to implement them in this way. Looking at the comments in the source code can also prove useful.
+
+# Troubleshooting #
+
+This section is about fixing some of the problems you may have:
+
+> I don't have test values.
+
+Did you run [http://localhost:8080/AMT_REST/test](http://localhost:8080/AMT_REST/test) ?
+
+> My database called *amtdatabaserest* doesn't exist on MySQL.
+
+Did you run the script [dbScriptREST.sh](https://github.com/bbcnt/AMT_REST/blob/master/scripts/dbScriptREST.sh)? If yes, check the result for eventual errors. Also, creating it manually on PHPMyAmin may work, it the creation of the DB is the only problem you have (assuming all the other operations worked).
+
+> I don't know how to test the API
+
+You can use both a navigator or an API tester, like [POSTMAN](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm). The way to interact is the REST way, using the URL.
+
+> I detected some problems in the code, what can I do?
+
+Well, why not [issue an issue](https://github.com/bbcnt/AMT_REST/issues)? So we can check the rêrror and try to fix it.
+
+> I want a particular GET method and it doens't work, can I implement it myself?
+
+Well, yes, but you shouldn't. Again, using the [issue](https://github.com/bbcnt/AMT_REST/issues) option would be the way to go.
