@@ -139,3 +139,27 @@ Well, why not [issue an issue](https://github.com/bbcnt/AMT_REST/issues)? So we 
 > I want a particular GET method and it doens't work, can I implement it myself?
 
 Well, yes, but you shouldn't. Again, using the [issue](https://github.com/bbcnt/AMT_REST/issues) option would be the way to go.
+
+> Nothing is working, what the hell? 
+
+In this case, let's try a few things. First, login into the GlassFish admin console :
+
+	http://localhost:4848
+
+Check under the Application tab that your application is up and kicking:
+
+![GF Server Admin Aplpication](./images/Troubleshooting/Application.png "Create GF Server")
+
+Then check that the existing JDBC resource is there too:
+
+![GF Server Admin Aplpication](./images/Troubleshooting/jdbc.png "Create GF Server")
+
+Lastly, check that the JDBC pool was also created:
+
+![GF Server Admin Aplpication](./images/Troubleshooting/jdbc_pool.png "Create GF Server")
+
+It everything is in place, and that you get this kind of message from NetBeans : 
+
+![GF Server Admin Aplpication](./images/Troubleshooting/deploy_success.png "Create GF Server")
+
+Then everything is working just fine, are you sure you were not mistaken? 
