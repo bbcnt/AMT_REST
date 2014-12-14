@@ -1,8 +1,11 @@
 # AMT REST LAB #
 ## 2014 - Bignens Julien & B. Carvalho Bruno :uk:
 
+#Due on the 15th of December, 2014#
+
+
 #Warning#
-This is the official guide to make our implementation of the AMT REST lab work. Follow this guide as strictly as possible, so it can work as it should.
+This is the official guide to make our implementation of the AMT REST lab work. Follow this guide as strictly as possible, so it can work as it should. If you encounter any problems, check the Troubleshooting part at the end of this document. If you want come working examples, check the [API doc](https://bignensju.github.io/AMT_TEST) or [this page](https://github.com/bbcnt/AMT_REST/blob/master/Other_Infos.md).
 
 ## Introduction ##
 The objective of this project is to emulate the behavior of a few sensors that create observations based on different values they collect (Internet Of Things style). We then want to use these observations to create "facts" that can be exploited by the users of this api. These facts can contain various informations. The next image is an example:
@@ -12,6 +15,15 @@ The objective of this project is to emulate the behavior of a few sensors that c
 For the sensor number 20, we have 3 facts, the first one is a fact counting the number of observations that were taken by this sensor on the date of 1970-01-16 (soooo long ago). The second one is a counter, showing how many observations were taken so far by this sensor. The thirs and last one is the same as the first one, except, this time we want this info for 2014-12-11 (not so long ago). And we can see that the 2 lat columns have the same "information", which is normal, the only observations that were taken, were taken this same day. So basically, everyday, a new fact will be created, counting the number of observations for this particular day.
 
 **Note:** in the DATE_COUNTER observations, there will be other infos (min,max and average value), but this was just to have an easy example.
+## Step 0##
+
+Before continuing, you need to have a few things installed:
+
+- Clone this repo
+- MySQL (with WAMP for example)
+- NetBeans and GlassFish
+
+if you have all of this, let's start.
 
 ## Step 1##
 Enough babbling, let's start this. The first thing to do is to use the script dbScriptREST.sh to generate all the basic structure (glassfish domains, database, etc). You can find it in the [/scripts](https://github.com/bbcnt/AMT_REST/tree/master/scripts) path of this repo. Also, you'll need to edit a few values inside the script, so make sure you know:
