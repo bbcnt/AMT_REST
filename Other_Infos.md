@@ -579,7 +579,7 @@ We create a sensor with a certain type of observations, it creates 2 facts, one 
 
 ![Sensor type is important](./images/Tests/4.PNG "GET USERS")
 
-So the difference is there, instead of counting the observations regardless of their type, we decided to create a new fact, so we have a better understanding of what's happening.
+So the difference is there, instead of counting the observations regardless of their type, we decided to create a new fact, so we have a better understanding of what's happening. Youn can also notice that the informations are stored in JSON data format.
 
 # Conclusion #
 
