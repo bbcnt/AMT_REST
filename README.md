@@ -190,6 +190,10 @@ Well, why not [issue an issue](https://github.com/bbcnt/AMT_REST/issues)? So we 
 
 Well, yes, but you shouldn't. Again, using the [issue](https://github.com/bbcnt/AMT_REST/issues) option would be the way to go.
 
+> My database is empty 
+
+Well, the content of the database (except for the tables) only survives the execution of the application (drop and create clause). So it's normal, to get values again, run the WebServletTest with /test
+
 > Nothing is working, what the hell? 
 
 In this case, let's try a few things. First, login into the GlassFish admin console :
