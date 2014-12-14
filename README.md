@@ -105,6 +105,56 @@ So to resume all this :
 - some facts make use of their creation date
 - facts are always stored in the same table
 
+# List of commands #
+
+All this can be found in the API doc, but here is a little heads up on how it works.
+
+Once you get your URL, such as : 
+
+ 	http://localhost:8080/AMT_REST/api/
+
+you then have the choice to do some operations:
+
+To get every {info}
+
+	GET .../api/{info}/
+
+To get only one {info}
+
+	GET .../api/{info}/{id}
+
+To post a new info
+
+	POST .../api/{info}
+	And you payload in JSON format
+
+To update an existing info
+
+	PUT .../api/{info}
+	And the payload in JSON (also include the id of your object here)
+
+To delete an existing {info}
+
+	DELETE .../api/{info}/{id}
+
+And you can replace {info} by 
+
+- organizations
+- users
+- sensors
+- observations
+- facts
+
+And {id} by 
+
+- a numerical value (id of the object)
+
+Example:
+
+	GET .../api/organizations/2
+
+Will get you the organization with id number 2.
+
 # Conclusion #
 
 This is the end of this little introduction. Its objective was to explain (lightly) how the application works and how to get it working. What now? You can now check both these links: 
