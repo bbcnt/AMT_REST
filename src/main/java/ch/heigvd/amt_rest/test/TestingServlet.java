@@ -122,6 +122,36 @@ public class TestingServlet extends HttpServlet {
             listSensors.add(s);
         }
         
+        /*  Testing the Fact2, we create a server, make some observations, then
+            change the type of its observation and see if it creates a new Fact 
+            (because a Fact2 depends on the sensor, its type of observation and 
+            the date). */
+        
+        Sensor sf2 = new Sensor();
+        
+        sf2.setName("sensor_TestF2");
+        sf2.setOrganization(org1);
+        sf2.setType("THERMO");
+        sf2.setVisibility("All");
+        sf2.setDescription("None, really");
+        sManager.createSensor(sf2);
+        
+        Observation obsf2 = new Observation();
+        obsf2.setSensor(sf2);
+        obsf2.setTimeS(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+        obsf2.setValueObservation(randDbl());
+        obsManager.createObservation(obsf2);
+        
+        sf2.setType("New Type");
+        
+        Observation obsf2_2 = new Observation();
+        obsf2_2.setSensor(sf2);
+        obsf2_2.setTimeS(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+        obsf2_2.setValueObservation(randDbl());
+        obsManager.createObservation(obsf2_2);
+        
+        /* End of Fact2 test */
+        
         //This is a test fact (date somewhere in the 1970), to see that different
         //facts are created in function of the date.
         Fact f = new Fact();
@@ -178,7 +208,6 @@ public class TestingServlet extends HttpServlet {
             out.println("</html>");
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

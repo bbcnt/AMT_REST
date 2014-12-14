@@ -57,7 +57,6 @@ public class FactResource {
      * @param ldate the date of the given fact (format : yyyy-MM-d)
      * @throws ParseException error in parsing the value of the date
      * @return List<FactDTO> list of factsDTO 
-     * 
      */
     public List<FactDTO> getFacts(@QueryParam("organizationid") Long idOrg,
                                   @QueryParam("sensorid") Long idSen,
