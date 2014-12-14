@@ -72,7 +72,7 @@ Now we will only put the results of our tests so far, using POSTMAN and PHPMyAdm
 
 So, we have been able to get all green on the functionnalities we tested. Let's now test all the GET methods we implemented, the other ones POST, PUT, etc are quite easy to test and they all work in the same fashion, so, we'll only do one of those to see how it works:
 
-![POST organization](./images/Tests/1.png "Tests")
+![POST organization](./images/Tests/1.PNG "Tests")
 
 As you can see, the returned value is 3 (because we already created 2 organizations with the servlet), so it works.
 
