@@ -1,6 +1,8 @@
 #!/bin/bash
-# indique au système que l'argument qui suit est le programme utilisé pour exécuter ce fichier.
-# En cas général les "#" servent à faire des commentaires comme ici
+# dbScriptREST is used to create the database, the GF domain and the JDBC pool to work with.
+# Don't forget to change the path to the 3 variables: MYSQL_BIN_DIR, GLASSFISH_BIN_DIR AND MYSQL_CONN_JAR.
+# Author : Brito Carvalho Bruno
+# Lab : AMT REST
 
 DB_NAME=AMTDatabaseREST
 DB_TECHNICAL_USER=AMTTechnicalUser
@@ -14,6 +16,7 @@ MYSQL_BIN_DIR=/cygdrive/c/wamp/bin/mysql/mysql5.6.12/bin
 #Your Glassfish bin directory
 GLASSFISH_BIN_DIR=/cygdrive/c/Users/brito_000/GlassFish_Server/glassfish/bin
 
+#Your path to the glassfish connector (you can download it in the /lib of this repo)
 MYSQL_CONN_JAR=/cygdrive/c/Users/brito_000/GlassFish_Server/mysql-connector-java-5.1.33/mysql-connector-java-5.1.33/mysql-connector-java-5.1.33-bin.jar
 
 # Partie MySQL
