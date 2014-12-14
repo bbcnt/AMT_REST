@@ -543,6 +543,44 @@ As you can see, not the same values. And this concludes our testing frenzy. To t
 - 	a date
 - 	the type of the sensor
 
+But also, we made a test where we do this : 
+
+	Sensor sf2 = new Sensor();
+        
+    sf2.setName("sensor_TestF2");
+    sf2.setOrganization(org1);
+    sf2.setType("THERMO");
+    sf2.setVisibility("All");
+    sf2.setDescription("None, really");
+    sManager.createSensor(sf2);
+    
+    Observation obsf2 = new Observation();
+    obsf2.setSensor(sf2);
+    obsf2.setTimeS(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+    obsf2.setValueObservation(randDbl());
+    obsManager.createObservation(obsf2);
+    
+    sf2.setType("New Type");
+    
+    Observation obsf2_2 = new Observation();
+    obsf2_2.setSensor(sf2);
+    obsf2_2.setTimeS(new java.sql.Timestamp(Calendar.getInstance().getTime().getTime()));
+    obsf2_2.setValueObservation(randDbl());
+    obsManager.createObservation(obsf2_2);
+
+We create a sensor with a certain type of observations, it creates 2 facts, one for the current day and one counting its number of observations. Now we change the type of observations of this sensor and create a new one. What happens? Well, we get 4 facts ! In the beginning we decided to have Fact1 (number of observations counter) count all the observations regardless of the type of the sensor, but it's no sense to do this. So, the Facts are dependant of the type of sensor. To understand the difference, watch these images: 
+
+**Sensor type not important:**
+
+![Sensor type not important](./images/Tests/3.PNG "GET USERS")
+
+**Sensor type is important:**
+
+
+![Sensor type is important](./images/Tests/4.PNG "GET USERS")
+
+So the difference is there, instead of counting the observations regardless of their type, we decided to create a new fact, so we have a better understanding of what's happening.
+
 # Conclusion #
 
 We only implemented some easy facts, easy GET methods and most-likely not in the "sexiest" way of doing so. But everything we wanted to do seems to work, after running our tests, so we are pretty happy with this :+1:
