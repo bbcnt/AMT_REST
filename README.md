@@ -2,10 +2,11 @@
 ## 2014 - Bignens Julien & B. Carvalho Bruno :uk:
 
 #Due on the 15th of December, 2014#
-
+[
+API doc ](http://brunobritocarvalho.ch/)
 
 #Warning#
-This is the official guide to make our implementation of the AMT REST lab work. Follow this guide as strictly as possible, so it can work as it should. If you encounter any problems, check the Troubleshooting part at the end of this document. If you want come working examples, check the [API doc](https://bignensju.github.io/AMT_TEST) or [this page](https://github.com/bbcnt/AMT_REST/blob/master/Other_Infos.md).
+This is the official guide to make our implementation of the AMT REST lab work. Follow this guide as strictly as possible, so it can work as it should. If you encounter any problems, check the Troubleshooting part at the end of this document. If you want come working examples, check the [API doc](http://brunobritocarvalho.ch/) or [this page](https://github.com/bbcnt/AMT_REST/blob/master/Other_Infos.md).
 
 ## Introduction ##
 The objective of this project is to emulate the behavior of a few sensors that create observations based on different values they collect (Internet Of Things style). We then want to use these observations to create "facts" that can be exploited by the users of this api. These facts can contain various informations. The next image is an example:
@@ -171,7 +172,7 @@ Will get you the organization with id number 2.
 
 This is the end of this little introduction. Its objective was to explain (lightly) how the application works and how to get it working. What now? You can now check both these links: 
 
-- [RAML documentation](http://bignensju.github.io/AMT_TEST/)
+- [RAML documentation](http://brunobritocarvalho.ch)
 - [Testing documentation](https://github.com/bbcnt/AMT_REST/blob/master/Other_Infos.md)
 
 First link is the RAML documentation where you can find all the available REST commands of our project.
